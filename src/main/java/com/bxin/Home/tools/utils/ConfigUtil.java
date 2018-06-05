@@ -3,6 +3,7 @@ package com.bxin.Home.tools.utils;
 import com.bxin.Home.domain.SystemConfig;
 import com.bxin.Home.repository.SystemConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author noobug.com
  */
 @Component
+@DependsOn({"liquibase"})
 public class ConfigUtil {
 
     @Autowired

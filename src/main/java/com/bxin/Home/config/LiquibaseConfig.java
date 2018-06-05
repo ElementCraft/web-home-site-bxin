@@ -9,13 +9,13 @@ import javax.sql.DataSource;
 @Configuration
 public class LiquibaseConfig {
 
-    @Bean
+    @Bean(name = "liquibase")
     public SpringLiquibase liquibase(DataSource dataSource) {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource);
         liquibase.setChangeLog("classpath:liquibase/master.xml");
         //liquibase.setContexts("development,test,production");
-        liquibase.setShouldRun(false);
+        liquibase.setShouldRun(true);
         return liquibase;
     }
 

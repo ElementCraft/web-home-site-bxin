@@ -18,10 +18,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -42,9 +44,11 @@ public class JwtAuthFilter extends GenericFilterBean {
     private UserMapper userMapper;
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
+        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         try {
-            HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+
             boolean needAuth = needAuth(httpServletRequest);
 
             String jwt = resolveToken(httpServletRequest);
@@ -58,7 +62,9 @@ public class JwtAuthFilter extends GenericFilterBean {
                                 authentication.getPrincipal().toString(), authentication.getCredentials().toString(), Boolean.FALSE);
 
                         if (!user.isPresent()) {
-                            throw new Exception("Token携带的用户信息无效");
+                            log.warn("[JWTToken] Token无效：{}", "Token携带的用户信息无效");
+                            ((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            return;
                         }
 
                         UserInfoDTO userInfoDTO = userMapper.toDto(user.get());
@@ -68,16 +74,15 @@ public class JwtAuthFilter extends GenericFilterBean {
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                     }
                 } else {
-                    throw new Exception("需要鉴权");
+                    log.warn("[JWTToken] {}", "需要鉴权");
+                    ((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
                 }
             }
 
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (TokenExpiredException e) {
             log.warn("[JWTToken] Token过期：{}", e.getMessage());
-            ((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        } catch (Exception e) {
-            log.warn("[JWTToken] Token无效：{}", e.getMessage());
             ((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
@@ -87,7 +92,8 @@ public class JwtAuthFilter extends GenericFilterBean {
         PathMatcher pathMatcher = new AntPathMatcher();
         String[] patterns = {
                 "/api/user/login",
-                "/api/user/articles"
+                "/api/user/articles",
+                "/api/nav/all",
         };
 
         for (String pattern : patterns) {

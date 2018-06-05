@@ -15,18 +15,29 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
-public class User extends BasePojo {
+@Table(name = "nav")
+public class Nav extends BasePojo {
 
     @Id
     private Long id;
 
-    private String account;
+    /**
+     * 父导航ID
+     */
+    private Long parentId;
 
-    private String password;
+    /**
+     * 标题
+     */
+    private String title;
 
-    private String nickName;
+    /**
+     * 非通用页面需要跳转
+     */
+    private Boolean needJump;
 
-    @Column(name = "is_deleted")
-    private Boolean deleted;
+    /**
+     * 跳转URL
+     */
+    private String jumpUrl;
 }
