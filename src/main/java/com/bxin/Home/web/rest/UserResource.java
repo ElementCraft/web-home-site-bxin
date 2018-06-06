@@ -1,17 +1,13 @@
 package com.bxin.Home.web.rest;
 
+import com.bxin.Home.service.UserService;
+import com.bxin.Home.tools.entity.Result;
+import com.bxin.Home.web.dto.UserLoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static com.bxin.Home.constants.ArticleConst.Flag.*;
+import static org.springframework.http.ResponseEntity.ok;
 
 /**
  * @author 小王子
@@ -21,5 +17,13 @@ import static com.bxin.Home.constants.ArticleConst.Flag.*;
 @CrossOrigin
 public class UserResource {
 
+    @Autowired
+    private UserService userService;
 
+    @PostMapping("/login")
+    private ResponseEntity<Result> login(@RequestBody UserLoginDTO loginDTO) {
+        Result result = userService.login(loginDTO);
+
+        return ok(result);
+    }
 }
