@@ -76,6 +76,7 @@ public class TokenProvider {
             String auths = jwt.getClaim(JwtConst.AUTHORITIES_CLAIM_KEY).asString();
             Collection<? extends GrantedAuthority> authorities =
                     Arrays.stream(auths.split(JwtConst.AUTHORITIES_CLAIM_DELIMITER))
+                            .filter(str -> str != null && str.length() > 0)
                             .map(SimpleGrantedAuthority::new)
                             .collect(Collectors.toList());
 

@@ -1,25 +1,16 @@
 package com.bxin.Home.service;
 
 import com.bxin.Home.constants.error.UserError;
-import com.bxin.Home.domain.Nav;
-import com.bxin.Home.domain.Role;
 import com.bxin.Home.jwt.TokenProvider;
-import com.bxin.Home.repository.NavRepository;
 import com.bxin.Home.repository.UserRepository;
 import com.bxin.Home.tools.entity.Result;
 import com.bxin.Home.tools.utils.SecurityUtil;
-import com.bxin.Home.web.dto.NavListDTO;
 import com.bxin.Home.web.dto.UserLoginDTO;
-import com.bxin.Home.web.mapper.NavMapper;
 import com.bxin.Home.web.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import static com.bxin.Home.tools.entity.Result.error;
 import static com.bxin.Home.tools.entity.Result.ok;
@@ -44,7 +35,7 @@ public class UserService {
     /**
      * 登录
      *
-     * @param loginDTO   登录信息
+     * @param loginDTO 登录信息
      * @return
      */
     public Result login(UserLoginDTO loginDTO) {
@@ -71,5 +62,15 @@ public class UserService {
                     }
                 })
                 .orElse(error(UserError.Login.NOT_EXIST_ACCOUNT));
+    }
+
+    /**
+     * 获取当前登录用户信息
+     *
+     * @return
+     */
+    public Result ownInfo() {
+        Long id = securityUtil.getCurrentUserId();
+        return ok(userMapper.toDto(userRepository.getOne(id)));
     }
 }
