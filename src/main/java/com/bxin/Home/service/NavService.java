@@ -1,6 +1,7 @@
 package com.bxin.Home.service;
 
 import com.bxin.Home.constants.error.NavError;
+import com.bxin.Home.constants.error.PublicError;
 import com.bxin.Home.domain.Nav;
 import com.bxin.Home.repository.NavRepository;
 import com.bxin.Home.tools.entity.Result;
@@ -97,6 +98,10 @@ public class NavService {
      * @return
      */
     public Result fix(Long id, Nav nav) {
+        if(id == null){
+            return Result.error(PublicError.REQUIRE_IS_NULL);
+        }
+
         String title = nav.getTitle();
         Boolean needJump = nav.getNeedJump();
         String jumpUrl = nav.getJumpUrl();

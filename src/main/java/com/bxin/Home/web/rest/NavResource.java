@@ -35,5 +35,4 @@ public class NavResource {
     @PutMapping("/fix")
     public ResponseEntity<Result> fix(Long id, @RequestBody Nav nav){
         return ResponseEntity.ok(navService.fix(id, nav));
-    }
-}
+    }}
