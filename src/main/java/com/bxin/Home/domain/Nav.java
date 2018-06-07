@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -19,6 +16,7 @@ import javax.persistence.Table;
 public class Nav extends BasePojo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
@@ -40,4 +38,9 @@ public class Nav extends BasePojo {
      * 跳转URL
      */
     private String jumpUrl;
+
+    /**
+     * 排序等级
+     */
+    private Integer sortLevel;
 }

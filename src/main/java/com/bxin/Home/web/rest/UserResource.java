@@ -15,7 +15,7 @@ import static org.springframework.http.ResponseEntity.ok;
  */
 @RestController
 @RequestMapping("/api/user")
-@CrossOrigin
+@CrossOrigin(allowedHeaders = {"Authorization"})
 public class UserResource {
 
     @Autowired

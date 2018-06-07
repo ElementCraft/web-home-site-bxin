@@ -22,4 +22,10 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="201806071749" author="ElementCraft">
+        <addColumn tableName="nav">
+            <column name="sort_level" type="int" afterColumn="jump_url" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

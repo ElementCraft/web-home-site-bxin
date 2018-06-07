@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface NavRepository extends JpaRepository<Nav, Long> {
 
-    List<Nav> findAllByParentIdIsNull();
+    List<Nav> findAllByParentIdIsNullOrderBySortLevelDesc();
 
     List<Nav> findAllByParentIdNotNull();
 }

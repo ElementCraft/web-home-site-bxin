@@ -26,6 +26,11 @@ public class NavListDTO {
     private Boolean needJump;
 
     /**
+     * 排序等级
+     */
+    private Integer sortLevel;
+
+    /**
      * 跳转URL
      */
     private String jumpUrl;
