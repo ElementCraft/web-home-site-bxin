@@ -9,5 +9,7 @@ public interface NavRepository extends JpaRepository<Nav, Long> {
 
     List<Nav> findAllByParentIdIsNullOrderBySortLevelDesc();
 
-    List<Nav> findAllByParentIdNotNull();
+    List<Nav> findAllByParentIdNotNullOrderBySortLevelDesc();
+
+    List<Nav> findAllByParentId(Long id);
 }

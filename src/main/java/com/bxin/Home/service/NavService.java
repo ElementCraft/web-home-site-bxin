@@ -41,7 +41,7 @@ public class NavService {
         List<NavListDTO> result = navMapper.navs2NavListDTOs(navs1);
 
         // 查询所有二级导航栏，遍历添加到对应的一级导航栏下
-        List<Nav> navs2 = navRepository.findAllByParentIdNotNull();
+        List<Nav> navs2 = navRepository.findAllByParentIdNotNullOrderBySortLevelDesc();
         navs2.forEach(nav2 -> {
             // 遍历一级导航栏 如果parentId跟一级导航栏的id对应，添加到结果集中。
             result.forEach(nav1 -> {
@@ -127,8 +127,33 @@ public class NavService {
             dbNav.setSortLevel(nav.getSortLevel());
         }
 
-
         navRepository.save(dbNav);
+
+        return Result.ok();
+    }
+
+    /**
+     * 删除导航栏
+     *
+     * @param id 导航栏ID
+     * @return
+     */
+    public Result del(Long id) {
+        if(id == null){
+            return Result.error(PublicError.REQUIRE_IS_NULL);
+        }
+
+        // 查询id对应的导航栏信息
+        Nav dbNav = navRepository.findOne(id);
+        if(dbNav == null) return Result.ok();
+
+        List<Nav> lv2Nav = navRepository.findAllByParentId(id);
+
+        if(lv2Nav != null){
+            navRepository.delete(lv2Nav);
+        }
+
+        navRepository.delete(dbNav);
 
         return Result.ok();
     }

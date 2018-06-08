@@ -28,11 +28,17 @@ public class NavResource {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Result> add(@RequestBody Nav nav){
+    public ResponseEntity<Result> add(@RequestBody Nav nav) {
         return ResponseEntity.ok(navService.addNew(nav));
     }
 
     @PutMapping("/fix")
-    public ResponseEntity<Result> fix(Long id, @RequestBody Nav nav){
+    public ResponseEntity<Result> fix(Long id, @RequestBody Nav nav) {
         return ResponseEntity.ok(navService.fix(id, nav));
-    }}
+    }
+
+    @DeleteMapping("/del")
+    public ResponseEntity<Result> del(Long id) {
+        return ResponseEntity.ok(navService.del(id));
+    }
+}
