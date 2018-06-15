@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "")
+@Table(name = "note")
 public class Note extends BasePojo {
 
     @Id

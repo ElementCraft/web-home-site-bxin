@@ -95,6 +95,7 @@ public class JwtAuthFilter extends GenericFilterBean {
                 "/api/user/articles",
                 "/api/nav/all",
                 "/api/swiper/all",
+                "/uploads/**",
         };
 
         for (String pattern : patterns) {
