@@ -13,7 +13,10 @@ spring:
     cache: false
     mode: HTML
     check-template: false
-
+  mvc:
+    static-path-pattern: /uploads/**
+  resources:
+    static-locations: /uploads/
 server:
   tomcat:
     uri-encoding: UTF-8
