@@ -24,10 +24,5 @@ public class Article extends BasePojo {
 
     private String title;
 
-    /**
-     * 邮箱
-     */
-    private String email;
-
     private String content;
 }

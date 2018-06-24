@@ -13,6 +13,7 @@
     <include file="classpath:/liquibase/changelog/2018060500100001-Nav.xml"/>
     <include file="classpath:/liquibase/changelog/2018061022300001-Swiper.xml"/>
     <include file="classpath:/liquibase/changelog/2018061317460001-Note.xml"/>
+    <include file="classpath:/liquibase/changelog/2018062314000001-Article.xml"/>
 
 
 </databaseChangeLog>
