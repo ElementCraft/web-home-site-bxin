@@ -5,9 +5,9 @@ import com.bxin.Home.repository.ArticleRepository;
 import com.bxin.Home.tools.entity.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class ArticleService {
      * @return
      */
     public List<Article> getAll() {
-        return articleRepository.findAll(new Sort(Sort.Direction.DESC, "gmtCreate"));
+        return articleRepository.findAllByDeletedOrderByGmtCreateDesc(Boolean.FALSE);
     }
 
     /**
@@ -43,6 +43,32 @@ public class ArticleService {
     }
 
     public List<Article> getAllByNavId(Long id) {
-        return articleRepository.findAllByNavIdOrderByGmtCreateDesc(id);
+        return articleRepository.findAllByNavIdAndDeletedOrderByGmtCreateDesc(id, Boolean.FALSE);
+    }
+
+    public Article getOneById(Long id) {
+        return articleRepository.findOne(id);
+    }
+
+    public Article fix(Article article) {
+        Article dbArticle = articleRepository.findOne(article.getId());
+
+        if (StringUtils.hasText(article.getTitle())) {
+            dbArticle.setTitle(article.getTitle());
+        }
+
+        if (StringUtils.hasText(article.getContent())) {
+            dbArticle.setContent(article.getContent());
+        }
+
+        return articleRepository.save(dbArticle);
+    }
+
+    public Result del(Long id) {
+        Article dbArticle = articleRepository.findOne(id);
+        dbArticle.setDeleted(Boolean.TRUE);
+        articleRepository.save(dbArticle);
+
+        return Result.ok();
     }
 }

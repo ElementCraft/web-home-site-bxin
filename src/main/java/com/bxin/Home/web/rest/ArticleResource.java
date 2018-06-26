@@ -30,8 +30,23 @@ public class ArticleResource {
         return ResponseEntity.ok(articleService.addNew(article));
     }
 
-    @PostMapping("/nav")
+    @GetMapping("/nav")
     public ResponseEntity<List<Article>> nav(Long id) {
         return ResponseEntity.ok(articleService.getAllByNavId(id));
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<Article> info(Long id) {
+        return ResponseEntity.ok(articleService.getOneById(id));
+    }
+
+    @PutMapping("/fix")
+    public ResponseEntity<Article> fix(@RequestBody Article article) {
+        return ResponseEntity.ok(articleService.fix(article));
+    }
+
+    @DeleteMapping("/del")
+    public ResponseEntity<Result> del(Long id) {
+        return ResponseEntity.ok(articleService.del(id));
     }
 }

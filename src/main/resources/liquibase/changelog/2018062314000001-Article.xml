@@ -21,4 +21,10 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="201806271749" author="ElementCraft">
+        <addColumn tableName="article">
+            <column name="is_deleted" type="int" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

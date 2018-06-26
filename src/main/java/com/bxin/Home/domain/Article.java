@@ -25,4 +25,7 @@ public class Article extends BasePojo {
     private String title;
 
     private String content;
+
+    @Column(name = "is_deleted")
+    private Boolean deleted;
 }
