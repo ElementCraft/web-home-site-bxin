@@ -30,4 +30,8 @@ public class ArticleResource {
         return ResponseEntity.ok(articleService.addNew(article));
     }
 
+    @PostMapping("/nav")
+    public ResponseEntity<List<Article>> nav(Long id) {
+        return ResponseEntity.ok(articleService.getAllByNavId(id));
+    }
 }

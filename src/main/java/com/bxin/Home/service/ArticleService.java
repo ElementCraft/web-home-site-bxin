@@ -41,4 +41,8 @@ public class ArticleService {
 
         return Result.ok();
     }
+
+    public List<Article> getAllByNavId(Long id) {
+        return articleRepository.findAllByNavIdOrderByGmtCreateDesc(id);
+    }
 }
