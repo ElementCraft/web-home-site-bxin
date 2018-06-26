@@ -98,6 +98,7 @@ public class JwtAuthFilter extends GenericFilterBean {
                 "/api/note/all",
                 "/api/note/add",
                 "/api/article/all",
+                "/api/article/nav",
                 "/uploads/**",
         };
 
