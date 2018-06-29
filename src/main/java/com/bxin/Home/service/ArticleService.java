@@ -37,6 +37,7 @@ public class ArticleService {
     public Result addNew(Article article) {
 
         article.setId(null);
+        article.setDeleted(Boolean.FALSE);
         articleRepository.save(article);
 
         return Result.ok();

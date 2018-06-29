@@ -63,6 +63,7 @@ public class UploadUtil {
                                 targetFile = targetFile.getAbsoluteFile();
                                 sourceFile.transferTo(targetFile);
 
+                                log.warn(targetFile.getAbsolutePath());
                                 return Result.ok(targetPath);
                             } catch (IOException e) {
                                 e.printStackTrace();
