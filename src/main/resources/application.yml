@@ -16,7 +16,7 @@ spring:
   mvc:
     static-path-pattern: /uploads/**
   resources:
-    static-locations: /uploads/
+    static-locations: file:uploads/
 server:
   tomcat:
     uri-encoding: UTF-8
